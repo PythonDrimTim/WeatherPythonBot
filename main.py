@@ -23,6 +23,20 @@ def get_weather(city, open_weather_token):
 
 #print(get_weather('saratov', config.WEATHER_TOKEN))
 
+@bot.message_handler(commands=['start'])
+def welcome(message):
+
+    # keyboard
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1 = types.KeyboardButton("Рандомное число")
+    item2 = types.KeyboardButton("Как дела?")
+    item3 = types.KeyboardButton("Температура")
+
+    markup.add(item1, item2, item3)
+    bot.send_message(message.chat.id,
+                     "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>.".format(message.from_user,
+                                                                                            bot.get_me()),
+                     parse_mode='html', reply_markup=markup)
 
 @bot.message_handler(content_types=['text'])
 def lalala(message):
